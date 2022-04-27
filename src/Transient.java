@@ -32,10 +32,14 @@ public class Transient extends TaskManager{
             this.type = type;
             this.startTime = startTime;
             this.duration = duration;
-            System.out.println("Task Successfully created");
-            System.out.println();
+            createTask(name, type, startTime, duration, date);
         }
 
+    }
+
+    public void createTask(String name, String type, float startTime, float duration, int date){
+        //TODO: CreateTask
+        System.out.println(name + type + startTime + duration + date);
     }
 
     public boolean isDateValid(int date){
