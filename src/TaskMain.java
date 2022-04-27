@@ -1,9 +1,10 @@
 import java.util.Scanner;
 
 public class TaskMain {
+
     public static void main(String[] args) {
-        int option = 1;
         Scanner scanner = new Scanner(System.in);
+        int option = 1;
 
         while(option > 0 && option < 9) {
             System.out.println("\t----------------------");
@@ -23,7 +24,28 @@ public class TaskMain {
             option = scanner.nextInt();
 
             if(option==1){
-                //TODO: Create Task
+                //Attributes class purpose is to collect task attributes
+                Attributes attributes = new Attributes();
+
+                //Gather attributes for tasks. Transient, Recurring, and Anti Tasks all share the following attributes:
+                String taskType = attributes.taskType();
+                String name = attributes.taskName(taskType);
+                float time = attributes.startTime();
+                float duration = attributes.duration();
+
+                //If task is transient, create new transient object
+                if(taskType.equals("Transient")){
+                    Transient trans = new Transient(name, taskType, time, duration);
+                }
+                //If task is recurring, create new recurring object
+                else if(taskType.equals("Recurring")){
+                    //TODO: Create Recurring Object
+                }
+
+                else if(taskType.equals("Anti")){
+                    //TODO: Create Anti Object
+                }
+
             }
             else if(option==2){
                 //TODO: View Task
@@ -49,4 +71,5 @@ public class TaskMain {
 
         }
     }
+
 }
