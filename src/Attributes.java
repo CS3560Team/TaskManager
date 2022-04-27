@@ -54,7 +54,7 @@ public class Attributes {
 
     public float startTime(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("*Note: Start time must be between 0-24 and starts on the nearest 15th minute. (example 7:45am = 19.75)");
+        System.out.println("*Note: Start time must be between 0-23.75 and starts on the nearest 15th minute. (example 7:45am = 19.75)");
         System.out.print("Enter a start time: ");
         float time = scanner.nextFloat();
         System.out.println();
@@ -64,7 +64,7 @@ public class Attributes {
 
     public float duration(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("*Note: Duration must be rounded to nearest 15th minute (example 1 hour 45 minutes = 1.75");
+        System.out.println("*Note: Duration must be rounded to nearest 15th minute and be between 0.25-23.75 (example 1 hour 45 minutes = 1.75");
         System.out.print("Enter a duration: ");
         float length = scanner.nextFloat();
         System.out.println();

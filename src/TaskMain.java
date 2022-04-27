@@ -39,11 +39,11 @@ public class TaskMain {
                 }
                 //If task is recurring, create new recurring object
                 else if(taskType.equals("Recurring")){
-                    //TODO: Create Recurring Object
+                    Recurring rec = new Recurring(name, taskType, time, duration);
                 }
 
                 else if(taskType.equals("Anti")){
-                    //TODO: Create Anti Object
+                    Anti anti = new Anti(name, taskType, time, duration);
                 }
 
             }

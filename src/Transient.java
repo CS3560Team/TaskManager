@@ -15,11 +15,32 @@ public class Transient extends TaskManager{
     public Transient(String name, String type, float startTime, float duration){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Date of Activity in format YYYYMMDD: ");
-        this.name = name;
-        this.type = type;
-        this.startTime = startTime;
-        this.duration = duration;
         this.date = scanner.nextInt();
+        while (!isDateValid(date)){
+            System.out.println("ERROR: invalid date. Please try again.");
+            System.out.print("Enter Date of Activity in format YYYYMMDD: ");
+            this.date = scanner.nextInt();
+        }
+        if(taskOverlap()){
+            System.out.println("ERROR: Task overlaps with already existing task. Task not created");
+        }
+        else if(!taskUnique()){
+            System.out.println("ERROR: This task already exists in system. Task not created");
+        }
+        else{
+            this.name = name;
+            this.type = type;
+            this.startTime = startTime;
+            this.duration = duration;
+            System.out.println("Task Successfully created");
+            System.out.println();
+        }
+
+    }
+
+    public boolean isDateValid(int date){
+        return true;
+        //TODO: check if date is valid
     }
 
     public boolean taskOverlap(){
