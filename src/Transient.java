@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.*;
+import java.nio.file.*;;
 
 public class Transient extends TaskManager{
 
@@ -15,7 +17,7 @@ public class Transient extends TaskManager{
      * @param startTime - starting time of task
      * @param duration - duration of task
      */
-    public Transient(String name, String type, float startTime, float duration){
+    public Transient(String name, String type, float startTime, float duration) throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Date of Activity in format YYYYMMDD: ");
         this.date = scanner.nextInt();
@@ -24,10 +26,12 @@ public class Transient extends TaskManager{
             System.out.print("Enter Date of Activity in format YYYYMMDD: ");
             this.date = scanner.nextInt();
         }
-        if(taskOverlap()){
+        if(taskOverlap(startTime, duration, this.date)){
+            System.out.println("Error in taskoverlap function");
             System.out.println("ERROR: Task overlaps with already existing task. Task not created");
+            System.exit(0);
         }
-        else if(!taskUnique()){
+        if(!taskUnique(name)){
             System.out.println("ERROR: This task already exists in system. Task not created");
         }
         else{
@@ -45,7 +49,7 @@ public class Transient extends TaskManager{
         //all activities will stay until they are added to schedule
         try {
             FileWriter myWriter = new FileWriter("buffer.txt", true);
-            myWriter.write(this.type + "," + this.name + "," + this.date + "," + this.startTime + "," + this.duration + "\n");
+            myWriter.write("\n" + this.type + "," + this.name + "," + this.date + "," + this.startTime + "," + this.duration);
             myWriter.close();
             System.out.println("Task Created");
         } catch (IOException e) {
@@ -97,14 +101,45 @@ public class Transient extends TaskManager{
 
     }
 
-    public boolean taskOverlap(){
+    public boolean taskOverlap(float startTime, float duration, int date) throws Exception{
+        String data ="";
+        data = new String(Files.readAllBytes(Paths.get("buffer.txt")));
+
+        Scanner scanner = new Scanner(data);
+        while (scanner.hasNextLine()) {
+
+            String line = scanner.nextLine();
+            String[] values = line.split(",");
+            if (Integer.valueOf(values[2]) == date) {
+                float rangeStart = Float.valueOf(values[3]);
+                float rangeEnd = Float.valueOf(values[3]) + Float.valueOf(values[4]);
+                if (startTime > rangeStart || startTime < rangeEnd)
+                    return true;
+                else if (startTime < rangeStart && startTime + duration > rangeEnd)
+                    return true;
+            }
+
+        }
+        scanner.close();
         return false;
-        //TODO: Check if task overlaps
     }
 
-    public boolean taskUnique(){
+    public boolean taskUnique(String name) throws IOException {
+        String data ="";
+        data = new String(Files.readAllBytes(Paths.get("buffer.txt")));
+
+        Scanner scanner = new Scanner(data);
+        while (scanner.hasNextLine()) {
+
+            String line = scanner.nextLine();
+            String[] values = line.split(",");
+            if (values[1].equals(name)) {
+                return false;
+            }
+
+        }
+        scanner.close();
         return true;
-        //TODO: check if task is unique
     }
 
 

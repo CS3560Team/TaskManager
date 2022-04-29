@@ -11,7 +11,7 @@ public class TaskManager {
    float duration;
 
    public void viewTask(String task) throws Exception{
-      
+
       //Open buffer.txt and search name attributes from file to see if there is a match
       String data ="";
       data = new String(Files.readAllBytes(Paths.get("buffer.txt")));
