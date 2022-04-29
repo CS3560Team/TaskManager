@@ -1,8 +1,9 @@
 import java.util.Scanner;
+import java.io.*;
 
 public class TaskMain {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         int option = 1;
 
@@ -48,7 +49,12 @@ public class TaskMain {
 
             }
             else if(option==2){
-                //TODO: View Task
+                Scanner sc = new Scanner(System.in);
+                TaskManager task = new TaskManager();
+                System.out.print("Enter a task to search: ");
+                String taskName = sc.nextLine();
+                System.out.println();
+                task.viewTask(taskName);
             }
             else if(option==3){
                 //TODO: Delete Task

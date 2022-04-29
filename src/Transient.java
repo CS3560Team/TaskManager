@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Transient extends TaskManager{
 
@@ -38,7 +41,17 @@ public class Transient extends TaskManager{
     }
 
     public void createTask(String name, String type, float startTime, float duration, int date){
-        //TODO: CreateTask
+        //Create task if everything is successful. Add it to file called buffer.txt where
+        //all activities will stay until they are added to schedule
+        try {
+            FileWriter myWriter = new FileWriter("buffer.txt", true);
+            myWriter.write(this.type + "," + this.name + "," + this.date + "," + this.startTime + "," + this.duration + "\n");
+            myWriter.close();
+            System.out.println("Task Created");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     public boolean isDateValid(int date){
